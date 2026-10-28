@@ -63,8 +63,9 @@ cp -R "${APP_BUNDLE}" "${HOME}/Applications/"
 
 # 7. Register with LaunchServices & PlugInKit
 echo "🔄 [6/6] Registering extension with macOS & Safari..."
-/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "${DEST_APP}"
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R -trusted "${DEST_APP}"
 pluginkit -a "${DEST_APP}/Contents/PlugIns/${APP_NAME} Extension.appex"
+pluginkit -e use -i com.siddharth.adshield.Extension
 
 echo ""
 echo "=================================================="

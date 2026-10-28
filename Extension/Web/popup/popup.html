@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdShield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <img src="../icons/icon32.png" alt="AdShield Logo" class="logo">
+        <div class="brand-text">
+          <h1>AdShield</h1>
+          <span class="status-badge" id="statusBadge">Active</span>
+        </div>
+      </div>
+      <!-- Master Switch -->
+      <label class="switch" title="Toggle AdShield">
+        <input type="checkbox" id="masterToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <!-- Stats Grid -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">On This Page</span>
+        <span class="stat-number" id="pageCount">0</span>
+        <span class="stat-unit">ads blocked</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Total Blocked</span>
+        <span class="stat-number" id="totalCount">0</span>
+        <span class="stat-unit">all-time</span>
+      </div>
+    </section>
+
+    <!-- Site Whitelist Card -->
+    <section class="site-card">
+      <div class="site-info">
+        <span class="site-label">Current Website</span>
+        <span class="site-domain" id="siteDomain">Checking...</span>
+      </div>
+      <button class="site-action-btn" id="whitelistBtn">
+        Whitelist Site
+      </button>
+    </section>
+
+    <!-- Advanced Feature Toggles -->
+    <section class="features-list">
+      <div class="feature-item">
+        <div class="feature-info">
+          <span class="feature-name">YouTube Shield</span>
+          <span class="feature-desc">Skip video ads & hide banners</span>
+        </div>
+        <label class="switch-small">
+          <input type="checkbox" id="youtubeToggle" checked>
+          <span class="slider-small"></span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-status">
+        <span class="status-dot"></span>
+        <span class="footer-text">Safari Shield Active</span>
+      </div>
+      <span class="version">v1.0.0</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

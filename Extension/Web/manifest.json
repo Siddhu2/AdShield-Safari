@@ -1,0 +1,73 @@
+{
+  "manifest_version": 3,
+  "name": "AdShield - Ad Blocker for Safari",
+  "version": "1.0.0",
+  "description": "High-performance ad blocker for Safari. Blocks intrusive banners, YouTube video ads, tracking beacons, and popups.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "AdShield",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ad_rules",
+        "enabled": true,
+        "path": "rules/rules.json"
+      }
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "content/youtube.js"
+      ],
+      "css": [
+        "content/youtube.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "exclude_matches": [
+        "*://*.youtube.com/*"
+      ],
+      "js": [
+        "content/universal.js"
+      ],
+      "css": [
+        "content/universal.css"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}

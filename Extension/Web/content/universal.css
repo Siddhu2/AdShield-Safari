@@ -1,0 +1,94 @@
+/* ==========================================================================
+   AdShield Universal Cosmetic Filter Stylesheet
+   Zero-flicker CSS hiding for display ads, trackers, and widgets across the web
+   ========================================================================== */
+
+/* Google AdSense / Google Publisher Tags */
+.adsbygoogle,
+[id^="google_ads_"],
+[id^="div-gpt-ad"],
+[id*="google_ads_iframe"],
+iframe[id^="aswift_"],
+iframe[name^="google_ads_"],
+iframe[src*="googlesyndication.com"],
+iframe[src*="doubleclick.net"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Taboola & Outbrain Widgets */
+.trc_rbox_container,
+.trc_related_container,
+.taboola-placeholder,
+#taboola-below-article-thumbnails,
+div[id^="taboola-"],
+.outbrain_widget,
+.OUTBRAIN,
+div[id^="outbrain_"],
+[data-widget-id*="taboola"],
+[data-widget-id*="outbrain"] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Generic Ad Banners & Wrappers */
+.ad-banner,
+.ad-container,
+.ad-wrapper,
+.ad_wrapper,
+.ad-box,
+.ad-slot,
+.ad-unit,
+.ad-placement,
+.advertisement,
+.advert-wrapper,
+.sponsored-post,
+.sponsored-card,
+.sponsored-content,
+[class*="ad-banner" i],
+[class*="ad-container" i],
+[class*="ad-wrapper" i],
+[class*="advertisement" i],
+[id*="ad-banner" i],
+[id*="ad-container" i],
+[id*="ad-wrapper" i],
+[data-ad-unit],
+[data-ad-slot],
+[data-ad-client] {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Sticky / Floating Video Ads (Bottom Corner News Floaties) */
+[class*="sticky-ad"],
+[class*="floating-ad"],
+[id*="sticky-ad"],
+[id*="floating-ad"],
+.flyout-ad,
+.corner-ad,
+.video-ad-corner {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Ad Choices / Feedback badges */
+.adchoices,
+.ad-choices,
+[class*="adchoices"],
+[class*="ad-choices"] {
+  display: none !important;
+}

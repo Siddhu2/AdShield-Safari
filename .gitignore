@@ -1,0 +1,14 @@
+# Build output
+build/
+*.app/
+*.appex/
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor files
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,63 @@
+/* ==========================================================================
+   AdShield YouTube Ad-Blocking Stylesheet
+   Cosmetic hiding for banners, sponsored cards, and promotional clutter
+   ========================================================================== */
+
+/* Top Masthead Ads & Promos */
+#masthead-ad,
+ytd-banner-promo-renderer,
+ytd-statement-banner-renderer,
+#masthead-container ytd-ad-slot-renderer,
+#header ytd-ad-slot-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* In-Feed & Search Results Ads */
+ytd-ad-slot-renderer,
+ytd-in-feed-ad-layout-renderer,
+ytd-promoted-sparkles-web-renderer,
+ytd-promoted-video-renderer,
+ytd-compact-promoted-video-renderer,
+ytd-display-ad-renderer,
+ytd-rich-item-renderer:has(ytd-ad-slot-renderer),
+ytd-rich-item-renderer:has(ytd-in-feed-ad-layout-renderer),
+ytd-rich-section-renderer:has(ytd-ad-slot-renderer),
+ytd-rich-section-renderer:has(ytd-statement-banner-renderer) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Video Player Overlay Banners (Banners on top of video, NOT video-ads module) */
+#player-ads,
+.ytp-ad-overlay-container,
+.ytp-ad-image-overlay,
+.ytp-ad-text-overlay {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Sidebar & Watch Page Ads */
+#panels:has(ytd-ads-engagement-panel-content-renderer),
+ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"],
+ytd-item-section-renderer:has(ytd-ad-slot-renderer),
+#secondary #items > ytd-ad-slot-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+/* Anti-Adblock Warning Modals */
+ytd-enforcement-message-view-model,
+tp-yt-paper-dialog:has(ytd-enforcement-message-view-model) {
+  display: none !important;
+  visibility: hidden !important;
+}

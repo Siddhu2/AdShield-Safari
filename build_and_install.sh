@@ -53,21 +53,21 @@ echo "✍️  [4/6] Code signing App & Extension with App Sandbox..."
 codesign -f -s - --entitlements "${SCRIPT_DIR}/Extension/Native/Extension.entitlements" "${EXT_BUNDLE}"
 codesign -f -s - --entitlements "${SCRIPT_DIR}/App/App.entitlements" "${APP_BUNDLE}"
 
-# 6. Install directly to /Applications
+# 6. Install exclusively to /Applications
 echo "🚀 [5/6] Installing to ${DEST_APP}..."
 rm -rf "${DEST_APP}"
 cp -R "${APP_BUNDLE}" "/Applications/"
 
-# Also keep ~/Applications in sync
-mkdir -p "${HOME}/Applications"
+# Remove intermediate build folder & old user copy to avoid duplicate apps in Spotlight/Launchpad
+rm -rf "${BUILD_DIR}"
 rm -rf "${HOME}/Applications/${APP_NAME}.app"
-cp -R "${APP_BUNDLE}" "${HOME}/Applications/"
 
 # 7. Register with LaunchServices & PlugInKit
 echo "🔄 [6/6] Registering extension with macOS & Safari..."
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f -R -trusted "${DEST_APP}"
 pluginkit -a "${DEST_APP}/Contents/PlugIns/${APP_NAME} Extension.appex"
 pluginkit -e use -i com.siddharth.adshield.Extension
+/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -gc 2>/dev/null || true
 
 echo ""
 echo "=================================================="

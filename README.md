@@ -1,109 +1,207 @@
+<div align="center">
+
 # 🛡️ AdShield for Safari
 
-A high-performance Safari Web Extension that blocks intrusive banner ads, trackers, telemetry, and **YouTube video ads** with zero flicker and instant skipping.
+**High-Performance Ad Blocker & YouTube Video Ad Skipper for macOS Safari**
+
+[![macOS](https://img.shields.io/badge/macOS-13.0+-black?logo=apple&style=for-the-badge)](https://apple.com/macos)
+[![Safari](https://img.shields.io/badge/Safari-16.4+-blue?logo=safari&style=for-the-badge)](https://apple.com/safari)
+[![Swift](https://img.shields.io/badge/Swift-5.9+-F05138?logo=swift&style=for-the-badge)](https://developer.apple.com/swift/)
+[![Manifest](https://img.shields.io/badge/Manifest-V3-success?style=for-the-badge)](https://developer.apple.com/documentation/safariservices/safari_web_extensions)
+[![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)](LICENSE)
+
+*Say goodbye to unskippable YouTube video ads, banner clutter, and intrusive tracking beacons in Safari.*
+
+[Features](#-key-features) • [Installation](#-installation--setup) • [How It Works](#-how-it-works) • [Build From Source](#-building-from-source) • [FAQ](#-troubleshooting--faq)
+
+</div>
 
 ---
 
-## ✨ Features
+## 🚀 Overview
 
-- **🚀 YouTube Video Ad Defense (4-Layer Engine)**:
-  1. **Page-Context Payload Stripper**: Intercepts `window.ytInitialPlayerResponse` and `/youtubei/v1/player` to strip `adPlacements` and `playerAds` before the player even initializes.
-  2. **Instant Auto-Skipper**: Mutes ads instantly, accelerates playback to 16x speed, seeks straight to completion, and triggers modern skip buttons automatically.
-  3. **Anti-Adblock Modal Neutralizer**: Automatically removes the *"Ad blockers violate YouTube's Terms of Service"* modal popup dialogs, clears dimmed backdrops, restores page scrollability, and auto-resumes playback.
-  4. **Zero-Flicker CSS Filtering**: Eliminates top mastheads, sponsored cards, in-feed ads, and sidebar promotions without layout shift.
-- **🌐 Universal Web Ad Blocker**:
-  - **Declarative Net Request (DNR) Rules**: Native network-level blocking of 120+ ad networks, trackers, and popup systems (DoubleClick, Google AdSense/Syndication, Taboola, Outbrain, Criteo, Amazon Ads, PopAds, etc.).
-  - **Dynamic Cosmetic Element Collapser**: Dynamically detects and hides ad iframes, banner containers, and sponsored posts on infinite-scroll pages.
-- **🖥️ Native macOS Container App**:
-  - Lightweight Swift AppKit companion app (`AdShield.app`).
-  - One-click shortcuts to open Safari Settings and test on YouTube.
-- **🎨 Modern Safari Extension Popup**:
-  - Live counter of blocked ads on the current page and all-time total.
-  - Per-site whitelist toggle.
-  - YouTube Shield toggle switch.
-  - Dark and Light mode support adhering to Apple Human Interface Guidelines.
+**AdShield** is a modern Safari Web Extension built with Apple's Manifest V3 standard and packaged in a native Swift AppKit container. It combines native WebKit network-level filtering with an intelligent page-context script that eliminates YouTube ads before you can even see or hear them.
+
+Unlike generic ad blockers that get detected and blocked by YouTube's anti-adblock mechanisms, AdShield neutralizes ads at the source while ensuring regular video playback remains flawless.
 
 ---
 
-## 🚀 Quick Setup & Installation
+## ✨ Key Features
 
-The extension has been compiled, code-signed, and installed to `~/Applications/AdShield.app`.
+### 🎬 YouTube Ad Defense
+- **⚡ Instant Fast-Forward Auto-Skipper**: When an ad plays, AdShield immediately mutes the ad, accelerates playback rate to 16×, seeks straight to completion, and triggers modern skip buttons programmatically in under 50ms.
+- **🛡️ Anti-Adblock Modal Neutralizer**: Automatically removes YouTube's *"Ad blockers violate YouTube's Terms of Service"* modal, clears the darkened backdrop, unlocks page scrolling, and auto-resumes playback.
+- **🧹 Zero-Flicker Cosmetic Cleaning**: Eliminates top mastheads, search-sponsored badges, in-feed ads, and sidebar teasers before they can render.
+- **🎧 Seamless Audio**: Mutes *only* the ad; restores your actual video volume and 1.0× playback speed instantly.
 
-### 1. Enable Developer Mode in Safari (One-time)
+### 🌐 Universal Web Ad Blocking
+- **⚡ Declarative Net Request (DNR)**: Drops network connections to **120+ top ad networks and trackers** (DoubleClick, Google AdSense, Taboola, Outbrain, Criteo, Amazon Ads, PopAds, etc.) directly in Safari's engine before bytes ever reach your Mac.
+- **📐 Dynamic Element Collapser**: Employs an efficient `MutationObserver` to detect and collapse empty ad wrappers and iframes on dynamic pages (Reddit, news publications, blogs).
+- **🔋 Battery & Data Friendly**: Processing happens natively in WebKit without heavy JavaScript rule engines draining CPU.
+
+### 🎨 Apple-Native Design
+- **Toolbar Popup**: Clean macOS design supporting Light & Dark mode with SF Pro typography.
+- **Real-Time Metrics**: View current tab blocked counts and all-time statistics.
+- **One-Click Whitelist**: Allow ads on trusted creators or sites with a single toggle.
+- **Native Container App**: Includes a Swift AppKit companion app (`AdShield.app`) for system registration.
+
+---
+
+## 🛠️ How It Works
+
+```text
+                               ┌────────────────────────────────────────────────┐
+                               │             AdShield Architecture              │
+                               └──────────────────────┬─────────────────────────┘
+                                                      │
+         ┌────────────────────────────────────────────┼────────────────────────────────────────┐
+         │                                            │                                        │
+         ▼                                            ▼                                        ▼
+┌───────────────────────┐                  ┌───────────────────────┐                ┌──────────────────────┐
+│  1. Declarative Net   │                  │  2. YouTube 4-Layer   │                │ 3. Universal Element │
+│     Request (DNR)     │                  │     Defense Engine    │                │      Collapser       │
+├───────────────────────┤                  ├───────────────────────┤                ├──────────────────────┤
+│ Blocks 120+ ad and    │                  │ • JSON Payload Strip  │                │ • Zero-flicker CSS   │
+│ tracking networks at  │                  │ • 16x Instant-Skip    │                │ • Dynamic iframe     │
+│ WebKit network level  │                  │ • Anti-Adblock Killer │                │   mutation observer  │
+│ before downloads occur│                  │ • Zero-flicker CSS    │                │ • White-space fix    │
+└───────────────────────┘                  └───────────────────────┘                └──────────────────────┘
+```
+
+1. **Declarative Net Request Engine**: Safari's native WebKit network layer parses `rules/rules.json`. Matching tracker scripts and ad domains are dropped immediately.
+2. **YouTube Video Ad Engine**: The content script monitors `#movie_player`. The instant YouTube marks an ad as active (`.ad-showing`), it speeds it up 16×, seeks to duration, clicks skip, and resets state for the actual video.
+3. **Cosmetic Engine**: Injected styles hide known ad slots and banner units instantly with zero layout shift.
+
+---
+
+## 💻 Installation & Setup
+
+### Prerequisites
+- macOS 13.0 (Ventura) or newer
+- Safari 16.4 or newer
+
+### 1. Build and Install
+
+Clone this repository and run the installation script:
+
+```bash
+git clone https://github.com/Siddhu2/AdShield-Safari.git
+cd AdShield-Safari
+make install
+```
+
+This compiles the native Swift container, packages the Web Extension, signs both bundles with App Sandbox entitlements, and installs `AdShield.app` into `/Applications/`.
+
+---
+
+### 2. Enable in Safari (One-Time Setup)
+
+#### Step 1: Show Developer Features
 1. Open **Safari**.
-2. Open **Settings** (press `⌘ ,` or choose **Safari > Settings** in the menu bar).
-3. Click the **Advanced** tab.
-4. Check **"Show features for web developers"** (or **"Show Develop menu in menu bar"**).
+2. Open Settings by pressing **`⌘ ,`** (Command + Comma) or click **Safari > Settings** in the top menu bar.
+3. Select the **Advanced** tab (the gear icon on the far right).
+4. At the very bottom, check the box:  
+   👉 **"Show features for web developers"** *(or "Show Develop menu in menu bar")*.
 
-### 2. Allow Unsigned Extensions
-1. In the macOS top menu bar, click the newly appeared **Develop** menu.
-2. Select **"Allow Unsigned Extensions"** (enter your Mac password or Touch ID if prompted).
-   *(This allows local, non-Mac-App-Store extensions to run).*
+#### Step 2: Allow Unsigned Extensions
+1. In your Mac's top menu bar, click **Develop**.
+2. Click **"Allow Unsigned Extensions"** (confirm with Touch ID or your password).  
+   *(This enables local developer extensions not distributed through the Mac App Store).*
 
-### 3. Turn on AdShield
-1. In Safari, go to **Settings > Extensions** tab.
-2. Check the box next to **AdShield**.
-3. Under website permissions, choose **"Always Allow on Every Website"** so AdShield can block ads seamlessly.
+#### Step 3: Turn on AdShield
+1. In Safari Settings, switch to the **Extensions** tab.
+2. In the list on the left, check the box next to **AdShield**.
+3. Under permissions, select **"Always Allow on Every Website"**.
 
 ---
 
 ## 🧪 Testing
 
-1. Launch Safari and navigate to [https://www.youtube.com](https://www.youtube.com).
-2. Play any video:
-   - Notice that pre-roll, mid-roll, and sidebar ads are absent or skipped instantaneously.
-   - Click the **AdShield icon** in your Safari toolbar to view the blocked ads counter in real-time.
+1. Open [YouTube](https://www.youtube.com) and play any video.
+2. Notice pre-roll and mid-roll ads are skipped instantly without delay.
+3. Click the **AdShield icon** in your Safari toolbar to see the live counter of blocked ads!
 
 ---
 
-## 🛠️ Build Commands
+## 📁 Repository Structure
 
-If you make modifications to the extension scripts, styles, or rules:
+```text
+AdShield-Safari/
+├── App/                                # Native macOS Container App (Swift)
+│   ├── main.swift                      # AppKit companion UI
+│   ├── App.entitlements                # App Sandbox security profile
+│   ├── Info.plist                      # Application bundle manifest
+│   └── Assets/
+│       └── AppIcon.png                 # Retina application icon
+├── Extension/
+│   ├── Native/                         # Native App Extension Wrapper
+│   │   ├── SafariWebExtensionHandler.swift
+│   │   ├── Extension.entitlements      # Sandbox & network client entitlements
+│   │   └── Info.plist
+│   └── Web/                            # Safari Web Extension (Manifest V3)
+│       ├── manifest.json               # Extension configuration
+│       ├── rules/
+│       │   └── rules.json              # 120+ Declarative Net Request rules
+│       ├── background/
+│       │   └── background.js           # Badge counter & storage coordinator
+│       ├── content/
+│       │   ├── youtube.js              # YouTube ad auto-skipper & modal killer
+│       │   ├── youtube.css             # YouTube cosmetic ad cleaner
+│       │   ├── universal.js            # Global ad blocker & iframe scanner
+│       │   └── universal.css           # Global cosmetic element hider
+│       ├── popup/
+│       │   ├── popup.html              # Apple-styled popup interface
+│       │   ├── popup.css               # Light & dark theme styles
+│       │   └── popup.js                # Live stats & whitelist controls
+│       └── icons/                      # Retina toolbar & system icons (16-512px)
+├── build_and_install.sh                # End-to-end automated compiler script
+├── Makefile                            # Build shortcuts
+├── LICENSE                             # MIT License
+└── README.md
+```
+
+---
+
+## 🛠️ Building From Source
 
 ```bash
-cd ~/AdShield-Safari
-
-# Rebuild and install to ~/Applications
+# Clean, compile, sign, and install to /Applications
 make install
 
-# Or launch the container app
+# Launch the container setup window
 make open
 
 # Test directly on YouTube
 make test-youtube
+
+# Clean build artifacts
+make clean
 ```
 
 ---
 
-## 📁 Project Structure
+## ❓ Troubleshooting & FAQ
 
-```text
-AdShield-Safari/
-├── App/                                # Native macOS Container App
-│   ├── main.swift                      # AppKit companion UI
-│   ├── Info.plist                      # Application configuration
-│   └── Assets/                         # App icon assets
-├── Extension/
-│   ├── Native/                         # Safari App Extension Wrapper
-│   │   ├── SafariWebExtensionHandler.swift
-│   │   └── Info.plist
-│   └── Web/                            # Safari Web Extension (Manifest V3)
-│       ├── manifest.json               # Extension manifest
-│       ├── rules/                      # Declarative Net Request blocklists
-│       │   └── rules.json              # 120+ ad & tracker network domains
-│       ├── background/                 # Background Service Worker
-│       │   └── background.js           # Badge updates, statistics & storage
-│       ├── content/                    # Content Scripts & Stylesheets
-│       │   ├── youtube.js              # Advanced YouTube Ad Skipper & Modal Killer
-│       │   ├── youtube.css             # YouTube cosmetic ad hider
-│       │   ├── universal.js            # Universal cosmetic filter & iframe scanner
-│       │   └── universal.css           # Global ad banner hiding rules
-│       ├── popup/                      # Extension Toolbar Popup UI
-│       │   ├── popup.html              # Apple-style popup layout
-│       │   ├── popup.css               # Light/dark mode styles
-│       │   └── popup.js                # Live stats and toggle logic
-│       └── icons/                      # High-resolution icons (16-512px)
-├── build_and_install.sh                # End-to-end compiler & packaging script
-├── Makefile                            # Convenience build targets
-└── README.md
-```
+<details>
+<summary><b>Why didn't AdShield show up in the Mac App Store?</b></summary>
+
+AdShield is a local open-source extension installed directly on your machine, not an App Store purchase. It appears in the **left sidebar** of **Safari Settings > Extensions**, not in the App Store search results.
+</details>
+
+<details>
+<summary><b>Safari shows a warning about unsigned extensions after rebooting?</b></summary>
+
+Because macOS resets developer extension flags on full Safari quit/reboot for security, simply re-click **Develop > Allow Unsigned Extensions** from the menu bar if prompted.
+</details>
+
+<details>
+<summary><b>How do I allow ads on a specific website?</b></summary>
+
+Click the **AdShield icon** in your Safari toolbar while on that website and click **"Whitelist Site"**. AdShield will pause blocking for that domain until you re-enable it.
+</details>
+
+---
+
+## 📄 License
+
+This project is open-source under the [MIT License](LICENSE). Feel free to fork, customize, or contribute!

@@ -32,6 +32,7 @@ swiftc -O -target arm64-apple-macos13.0 -framework AppKit \
 cp "${SCRIPT_DIR}/App/Info.plist" "${APP_BUNDLE}/Contents/Info.plist"
 if [ -d "${SCRIPT_DIR}/App/Assets" ]; then
   cp -R "${SCRIPT_DIR}/App/Assets/"* "${APP_BUNDLE}/Contents/Resources/Assets/"
+  cp "${SCRIPT_DIR}/App/Assets/AppIcon.icns" "${APP_BUNDLE}/Contents/Resources/AppIcon.icns" 2>/dev/null || true
 fi
 
 # 3. Compile Native Extension Binary
@@ -41,6 +42,7 @@ swiftc -O -target arm64-apple-macos13.0 -framework Foundation -framework SafariS
   -o "${EXT_BUNDLE}/Contents/MacOS/${APP_NAME} Extension"
 
 cp "${SCRIPT_DIR}/Extension/Native/Info.plist" "${EXT_BUNDLE}/Contents/Info.plist"
+cp "${SCRIPT_DIR}/App/Assets/AppIcon.icns" "${EXT_BUNDLE}/Contents/Resources/AppIcon.icns" 2>/dev/null || true
 
 # 4. Copy Web Extension Files
 echo "🌐 [3/6] Packaging Web Extension assets & rules..."
